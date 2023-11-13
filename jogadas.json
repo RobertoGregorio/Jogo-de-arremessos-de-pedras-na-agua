@@ -1,0 +1,363 @@
+{
+    "jogadas": [{
+            "jogada": "Egio x Jaco",
+            "resultado": "4 x 2"
+        },
+        {
+            "jogada": "Egio x Jaco",
+            "resultado": "2 x 5"
+        },
+        {
+            "jogada": "Egio x Jaco",
+            "resultado": "0 x 3"
+        },
+        {
+            "jogada": "Egio x Caio",
+            "resultado": "0 x 0"
+        },
+        {
+            "jogada": "Egio x Caio",
+            "resultado": "1 x 1"
+        },
+        {
+            "jogada": "Egio x Caio",
+            "resultado": "0 x 1"
+        },
+        {
+            "jogada": "Egio x Pedro",
+            "resultado": " 0 x 0"
+        },
+        {
+            "jogada": "Egio x Pedro",
+            "resultado": " 2 x 3"
+        },
+        {
+            "jogada": "Egio x Pedro",
+            "resultado": " 3 x 2"
+        },
+        {
+            "jogada": "Egio x Ana",
+            "resultado": " 1 x 2"
+        },
+        {
+            "jogada": "Egio x Ana",
+            "resultado": " 2 x 1"
+        },
+        {
+            "jogada": "Egio x Ana",
+            "resultado": " 1 x 2"
+        },
+        {
+            "jogada": "Egio x Maria",
+            "resultado": " 3 x 3"
+        },
+        {
+            "jogada": "Egio x Maria",
+            "resultado": " 1 x 2"
+        },
+        {
+            "jogada": "Egio x Maria",
+            "resultado": " 0 x 1"
+        },
+        {
+            "jogada": "Jaco x Egio",
+            "resultado": "4 x 4"
+        },
+        {
+            "jogada": "Jaco x Egio",
+            "resultado": "2 x 4"
+        },
+        {
+            "jogada": "Jaco x Egio",
+            "resultado": "2 x 0"
+        },
+        {
+            "jogada": "Jaco x Caio",
+            "resultado": "1 x 1"
+        },
+        {
+            "jogada": "Jaco x Caio",
+            "resultado": "1 x 1"
+        },
+        {
+            "jogada": "Jaco x Caio",
+            "resultado": "0 x 0"
+        },
+        {
+            "jogada": "Jaco x Pedro",
+            "resultado": " 4 x 3"
+        },
+        {
+            "jogada": "Jaco x Pedro",
+            "resultado": " 4 x 3"
+        },
+        {
+            "jogada": "Jaco x Pedro",
+            "resultado": " 2 x 2"
+        },
+        {
+            "jogada": "Jaco x Ana",
+            "resultado": " 8 x 9"
+        },
+        {
+            "jogada": "Jaco x Ana",
+            "resultado": " 4 x 5"
+        },
+        {
+            "jogada": "Jaco x Ana",
+            "resultado": " 2 x 3"
+        },
+        {
+            "jogada": "Jaco x Maria",
+            "resultado": " 3 x 1"
+        },
+        {
+            "jogada": "Jaco x Maria",
+            "resultado": " 3 x 1"
+        },
+        {
+            "jogada": "Jaco x Maria",
+            "resultado": " 3 x 1"
+        },
+        {
+            "jogada": "Caio x Egio",
+            "resultado": "1 x 3"
+        },
+        {
+            "jogada": "Caio x Egio",
+            "resultado": "2 x 1"
+        },
+        {
+            "jogada": "Caio x Egio",
+            "resultado": "1 x 5"
+        },
+        {
+            "jogada": "Caio x Jaco",
+            "resultado": "6 x 7"
+        },
+        {
+            "jogada": "Caio x Jaco",
+            "resultado": "4 x 5"
+        },
+        {
+            "jogada": "Caio x Jaco",
+            "resultado": "2 x 3"
+        },
+        {
+            "jogada": "Caio x Pedro",
+            "resultado": " 10 x 2"
+        },
+        {
+            "jogada": "Caio x Pedro",
+            "resultado": " 4 x 11"
+        },
+        {
+            "jogada": "Caio x Pedro",
+            "resultado": " 1 x 4"
+        },
+        {
+            "jogada": "Caio x Ana",
+            "resultado": " 6 x 3"
+        },
+        {
+            "jogada": "Caio x Ana",
+            "resultado": " 7 x 4"
+        },
+        {
+            "jogada": "Caio x Ana",
+            "resultado": " 2 x 5"
+        },
+        {
+            "jogada": "Caio x Maria",
+            "resultado": " 4 x 0"
+        },
+        {
+            "jogada": "Caio x Maria",
+            "resultado": " 3 x 2"
+        },
+        {
+            "jogada": "Caio x Maria",
+            "resultado": " 0 x 4"
+        },
+        {
+            "jogada": "Pedro x Egio",
+            "resultado": " 2 x 1"
+        },
+        {
+            "jogada": "Pedro x Egio",
+            "resultado": " 4 x 2"
+        },
+        {
+            "jogada": "Pedro x Egio",
+            "resultado": " 5 x 2"
+        },
+        {
+            "jogada": "Pedro x Jaco",
+            "resultado": " 2 x 6"
+        },
+        {
+            "jogada": "Pedro x Jaco",
+            "resultado": " 3 x 4"
+        },
+        {
+            "jogada": "Pedro x Jaco",
+            "resultado": " 5 x 2"
+        },
+        {
+            "jogada": "Pedro x Caio",
+            "resultado": " 1 x 0"
+        },
+        {
+            "jogada": "Pedro x Caio",
+            "resultado": " 1 x 1"
+        },
+        {
+            "jogada": "Pedro x Caio",
+            "resultado": " 0 x 1"
+        },
+        {
+            "jogada": "Pedro x Ana",
+            "resultado": "1 x 1"
+        },
+        {
+            "jogada": "Pedro x Ana",
+            "resultado": "3 x 3"
+        },
+        {
+            "jogada": "Pedro x Ana",
+            "resultado": "1 x 4"
+        },
+        {
+            "jogada": "Pedro x Maria",
+            "resultado": "3 x 2"
+        },
+        {
+            "jogada": "Pedro x Maria",
+            "resultado": "2 x 3"
+        },
+        {
+            "jogada": "Pedro x Maria",
+            "resultado": "1 x 4"
+        },
+        {
+            "jogada": "Ana x Egio",
+            "resultado": " 1 x 4"
+        },
+        {
+            "jogada": "Ana x Egio",
+            "resultado": " 1 x 2"
+        },
+        {
+            "jogada": "Ana x Egio",
+            "resultado": " 1 x 1"
+        },
+        {
+            "jogada": "Ana x Jaco",
+            "resultado": " 2 x 2"
+        },
+        {
+            "jogada": "Ana x Jaco",
+            "resultado": " 3 x 4"
+        },
+        {
+            "jogada": "Ana x Jaco",
+            "resultado": " 2 x 1"
+        },
+        {
+            "jogada": "Ana x Caio",
+            "resultado": " 4 x 5"
+        },
+        {
+            "jogada": "Ana x Caio",
+            "resultado": " 11 x 3"
+        },
+        {
+            "jogada": "Ana x Caio",
+            "resultado": " 2 x 2"
+        },
+        {
+            "jogada": "Ana x Pedro",
+            "resultado": "4 x 2"
+        },
+        {
+            "jogada": "Ana x Pedro",
+            "resultado": "1 x 8"
+        },
+        {
+            "jogada": "Ana x Pedro",
+            "resultado": "7 x 3"
+        },
+        {
+            "jogada": "Ana x Maria",
+            "resultado": "2 x 1"
+        },
+        {
+            "jogada": "Ana x Maria",
+            "resultado": "2 x 1"
+        },
+        {
+            "jogada": "Ana x Maria",
+            "resultado": "2 x 0"
+        },
+        {
+            "jogada": "Maria x Egio",
+            "resultado": " 5 x 0"
+        },
+        {
+            "jogada": "Maria x Egio",
+            "resultado": " 4 x 1"
+        },
+        {
+            "jogada": "Maria x Egio",
+            "resultado": " 1 x 1"
+        },
+        {
+            "jogada": "Maria x Jaco",
+            "resultado": " 3 x 1"
+        },
+        {
+            "jogada": "Maria x Jaco",
+            "resultado": " 7 x 5"
+        },
+        {
+            "jogada": "Maria x Jaco",
+            "resultado": " 2 x 8"
+        },
+        {
+            "jogada": "Maria x Caio",
+            "resultado": " 5 x 4"
+        },
+        {
+            "jogada": "Maria x Caio",
+            "resultado": " 6 x 3"
+        },
+        {
+            "jogada": "Maria x Caio",
+            "resultado": " 1 x 2"
+        },
+        {
+            "jogada": "Maria x Pedro",
+            "resultado": "3 x 1"
+        },
+        {
+            "jogada": "Maria x Pedro",
+            "resultado": "4 x 1"
+        },
+        {
+            "jogada": "Maria x Pedro",
+            "resultado": "2 x 0"
+        },
+        {
+            "jogada": "Maria x Ana",
+            "resultado": "2 x 6"
+        },
+        {
+            "jogada": "Maria x Ana",
+            "resultado": "5 x 8"
+        },
+        {
+            "jogada": "Maria x Ana",
+            "resultado": "12 x 3"
+        }
+    ]
+}

@@ -9,9 +9,9 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/API/bin/Debug/net7.0/API.dll",
+            "program": "${workspaceFolder}/ThrowingStonesGame/ThrowingStonesGame.API/bin/Debug/net7.0/ThrowingStonesGame.API.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/src/API",
+            "cwd": "${workspaceFolder}/ThrowingStonesGame/ThrowingStonesGame.API",
             "stopAtEntry": false,
             "serverReadyAction": {
                 "action": "openExternally",

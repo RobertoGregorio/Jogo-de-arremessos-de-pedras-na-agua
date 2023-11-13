@@ -1,15 +1,15 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace API.ValueObjects;
+namespace ThrowingStonesGame.API.Models;
 
-public class MatchDTO
+public class PlayMatchModel
 {
     [JsonPropertyName("jogada")]
     [Required(AllowEmptyStrings = false, ErrorMessage = "O campo jogada é obrigatório")]
-    public string? Play { get; set; }
+    public string? Players { get; set; }
 
     [JsonPropertyName("resultado")]
     [Required(AllowEmptyStrings = false, ErrorMessage = "O campo resultado é obrigatório")]
-    public string? Result { get; set; }
+    public string? MatchResult { get; set; }
 }
