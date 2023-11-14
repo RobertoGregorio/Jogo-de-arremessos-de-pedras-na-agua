@@ -9,7 +9,7 @@ namespace ThrowingStonesGame.API.Controllers;
 public class ThrowingStonesGameController : ControllerBase
 {
     private readonly ILogger<ThrowingStonesGameController> _logger;
-
+    
     // private IThrowingStonesGameService throwingStonesGameService;
 
     public ThrowingStonesGameController(ILogger<ThrowingStonesGameController> logger)
