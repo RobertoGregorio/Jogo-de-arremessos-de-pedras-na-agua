@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThrowingStonesGame.Infrastr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThrowingStonesGame.Service", "ThrowingStonesGame.Service\ThrowingStonesGame.Service.csproj", "{07B7CC3B-2E7C-4411-89D4-427F128EBB48}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThrowingStonesGame.CrossCutting", "ThrowingStonesGame.CrossCutting\ThrowingStonesGame.CrossCutting.csproj", "{897A946B-55B9-4678-8C21-01437762E8C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{07B7CC3B-2E7C-4411-89D4-427F128EBB48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07B7CC3B-2E7C-4411-89D4-427F128EBB48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07B7CC3B-2E7C-4411-89D4-427F128EBB48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{897A946B-55B9-4678-8C21-01437762E8C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{897A946B-55B9-4678-8C21-01437762E8C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{897A946B-55B9-4678-8C21-01437762E8C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{897A946B-55B9-4678-8C21-01437762E8C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,6 +43,7 @@ Global
 		{8E8CE131-CABD-48E2-ABB2-5310D229C579} = {D00C67F7-4295-4602-BC31-F61FE9930D30}
 		{F90F4E22-0055-4EC0-9650-2F2007E5631C} = {D00C67F7-4295-4602-BC31-F61FE9930D30}
 		{07B7CC3B-2E7C-4411-89D4-427F128EBB48} = {D00C67F7-4295-4602-BC31-F61FE9930D30}
+		{897A946B-55B9-4678-8C21-01437762E8C1} = {D00C67F7-4295-4602-BC31-F61FE9930D30}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D9613163-05A9-4716-88C4-FCE859400315}

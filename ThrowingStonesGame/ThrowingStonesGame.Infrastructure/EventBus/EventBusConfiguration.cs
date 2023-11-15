@@ -1,6 +1,8 @@
-﻿namespace ThrowingStonesGame.Infrastructure.EventBus.Interfaces;
+﻿using ThrowingStonesGame.Infrastructure.EventBus.Interfaces;
 
-public interface IEventBusConfiguration
+namespace ThrowingStonesGame.Infrastructure.EventBus;
+
+public class EventBusConfiguration : IEventBusConfiguration
 {
     public string Hostname { get; set; }
     public string Password { get; set; }

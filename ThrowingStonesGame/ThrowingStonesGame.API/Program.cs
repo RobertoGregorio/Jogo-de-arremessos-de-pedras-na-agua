@@ -1,4 +1,8 @@
+using ThrowingStonesGame.API.Filters;
 using ThrowingStonesGame.API.Middlewares;
+using ThrowingStonesGame.Infrastructure.EventBus;
+using ThrowingStonesGame.Infrastructure.EventBus.Interfaces;
+using ThrowingStonesGame.Infrastructure.EventBus.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,12 +13,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.Configure<EventBusConfiguration>(builder.Configuration.GetSection(nameof(EventBusConfiguration)));
+builder.Services.AddSingleton<IServiceBusProducer, RabbitMQProducer>();
+builder.Services.AddSingleton<RequestLogFilterHandler>();
+
 var app = builder.Build();
 
-
-
-
 // Configure the HTTP request pipeline.
+
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

@@ -1,6 +1,8 @@
 
 using Microsoft.AspNetCore.Mvc;
+using ThrowingStonesGame.API.Filters;
 using ThrowingStonesGame.API.Models;
+using ThrowingStonesGame.Infrastructure.EventBus.Interfaces;
 
 namespace ThrowingStonesGame.API.Controllers;
 
@@ -9,7 +11,7 @@ namespace ThrowingStonesGame.API.Controllers;
 public class ThrowingStonesGameController : ControllerBase
 {
     private readonly ILogger<ThrowingStonesGameController> _logger;
-    
+    private readonly IServiceBusProducer serviceBusProducer;
     // private IThrowingStonesGameService throwingStonesGameService;
 
     public ThrowingStonesGameController(ILogger<ThrowingStonesGameController> logger)
@@ -17,6 +19,7 @@ public class ThrowingStonesGameController : ControllerBase
         _logger = logger;
     }
 
+    [TypeFilter(typeof(RequestLogFilterHandler))]
     [HttpPost("classificacao_geral")]
     public ActionResult GenerateChampionshipClassification(GameMatchModel gameMatchInputModel)
     {
@@ -26,7 +29,6 @@ public class ThrowingStonesGameController : ControllerBase
         {
             vencedor = gameMatchInputModel.Plays != null ? gameMatchInputModel.Plays[0].Players : null,
             ranking = "null"
-
         });
     }
 }
