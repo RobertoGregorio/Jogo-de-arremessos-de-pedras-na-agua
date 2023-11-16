@@ -7,4 +7,4 @@
 # Arquitetura Limpa
 # .Net 6
 # Docker
-# Logs com RabbitMQ
+# RabbitMQ
