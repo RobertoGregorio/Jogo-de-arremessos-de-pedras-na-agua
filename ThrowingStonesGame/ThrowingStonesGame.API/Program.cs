@@ -1,27 +1,14 @@
-using ThrowingStonesGame.API.Filters;
-using ThrowingStonesGame.API.Middlewares;
-using ThrowingStonesGame.Infrastructure.EventBus;
-using ThrowingStonesGame.Infrastructure.EventBus.Interfaces;
-using ThrowingStonesGame.Infrastructure.EventBus.Service;
+using ThrowingStonesGame.API.IoC.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
-builder.Services.Configure<EventBusConfiguration>(builder.Configuration.GetSection(nameof(EventBusConfiguration)));
-builder.Services.AddSingleton<IServiceBusProducer, RabbitMQProducer>();
-builder.Services.AddSingleton<RequestLogFilterHandler>();
+builder.Services.AddConfig(builder.Configuration);
+builder.Services.AddDependencyGroup();
 
 var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-
-
 
 if (app.Environment.IsDevelopment())
 {
@@ -29,8 +16,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseMiddleware<ExceptionHandlerMiddleware>();
-app.UseMiddleware<AuthenticationMiddleware>();
+app.AddMiddlewares();
 
 app.UseHttpsRedirection();
 

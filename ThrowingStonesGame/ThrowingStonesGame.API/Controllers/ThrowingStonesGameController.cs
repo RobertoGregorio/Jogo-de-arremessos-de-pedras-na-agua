@@ -1,8 +1,10 @@
 
 using Microsoft.AspNetCore.Mvc;
 using ThrowingStonesGame.API.Filters;
-using ThrowingStonesGame.API.Models;
-using ThrowingStonesGame.Infrastructure.EventBus.Interfaces;
+using ThrowingStonesGame.API.Mapping.Interfaces;
+using ThrowingStonesGame.API.Models.Jsons;
+using ThrowingStonesGame.Service;
+using ThrowingStonesGame.Service.Interfaces;
 
 namespace ThrowingStonesGame.API.Controllers;
 
@@ -11,23 +13,28 @@ namespace ThrowingStonesGame.API.Controllers;
 public class ThrowingStonesGameController : ControllerBase
 {
     private readonly ILogger<ThrowingStonesGameController> _logger;
-    private readonly IServiceBusProducer serviceBusProducer;
-    // private IThrowingStonesGameService throwingStonesGameService;
+    private readonly IMapper _mapper;
+    private readonly IThrowingStonesGameService _throwingStonesGameService;
 
-    public ThrowingStonesGameController(ILogger<ThrowingStonesGameController> logger)
+    public ThrowingStonesGameController(ILogger<ThrowingStonesGameController> logger, IMapper mapper)
     {
         _logger = logger;
+        _mapper = mapper;
     }
 
     [TypeFilter(typeof(RequestLogFilterHandler))]
     [HttpPost("classificacao_geral")]
-    public ActionResult GenerateChampionshipClassification(GameMatchModel gameMatchInputModel)
+    public ActionResult GenerateChampionshipClassification(GameModel game)
     {
-        _logger.LogInformation($"Request received{DateTime.UtcNow} input model: {gameMatchInputModel} ");
+        var matches = _mapper.MapperForPlayMatchDtoList(game.Plays);
+
+        //_throwingStonesGameService.CalculeWinner(matches);
+
+        //  _logger.LogInformation($"Request received{DateTime.UtcNow} input model: {plays} ");
 
         return Ok(new
         {
-            vencedor = gameMatchInputModel.Plays != null ? gameMatchInputModel.Plays[0].Players : null,
+            vencedor = game.Plays[0],
             ranking = "null"
         });
     }

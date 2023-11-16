@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace ThrowingStonesGame.API.Models;
+namespace ThrowingStonesGame.API.Models.Jsons;
 
-public class PlayMatchModel
+public class PlayModel
 {
     [JsonPropertyName("jogada")]
     [Required(AllowEmptyStrings = false, ErrorMessage = "O campo jogada é obrigatório")]
