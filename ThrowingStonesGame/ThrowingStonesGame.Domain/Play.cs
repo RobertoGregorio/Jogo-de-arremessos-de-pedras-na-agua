@@ -1,6 +1,7 @@
-﻿namespace ThrowingStonesGame.Service.Dtos
+﻿namespace ThrowingStonesGame.Domain
+
 {
-    public class PlayDto
+    public class Play
     {
         public string? Players { get; set; }
         public string? MatchResult { get; set; }

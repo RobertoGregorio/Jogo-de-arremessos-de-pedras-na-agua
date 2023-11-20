@@ -1,14 +1,15 @@
-﻿using ThrowingStonesGame.Service.Dtos;
+﻿using ThrowingStonesGame.Application.Models;
+using ThrowingStonesGame.Domain;
 
 namespace ThrowingStonesGame.Service.Interfaces
 {
     public interface IThrowingStonesGameService
     {
-        List<PlayerClassification> GenerateClassification(List<PlayDto> plays);
+        List<GameResultInfos> GenerateClassification(List<PlayModel> plays);
 
-        public List<MatchDto> OrganizeMatchesResults(List<PlayDto> plays);
+        public List<Match> GetMatchesResults(List<Play> plays);
 
-        public MatchDto GetMatchResult(List<PlayDto> plays);
+        public Match GetMatchResult(List<Play> plays);
 
         public int CalculateTheStoneJumpBonusInThePlay(int stoneJumpsCount);
 

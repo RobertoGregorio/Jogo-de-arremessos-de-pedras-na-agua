@@ -1,7 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.Extensions.Logging;
-using System.Text.Json;
-using ThrowingStonesGame.API.Controllers;
 using ThrowingStonesGame.Infrastructure.EventBus;
 using ThrowingStonesGame.Infrastructure.EventBus.Interfaces;
 

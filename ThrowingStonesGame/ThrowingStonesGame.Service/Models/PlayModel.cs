@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace ThrowingStonesGame.API.Models.Jsons;
+namespace ThrowingStonesGame.Application.Models;
 
 public class PlayModel
 {

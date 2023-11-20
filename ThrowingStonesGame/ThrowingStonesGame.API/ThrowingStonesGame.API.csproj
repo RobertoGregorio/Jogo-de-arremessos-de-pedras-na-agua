@@ -14,7 +14,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\ThrowingStonesGame.Infrastructure\ThrowingStonesGame.Infrastructure.csproj" />
-		<ProjectReference Include="..\ThrowingStonesGame.Service\ThrowingStonesGame.Service.csproj" />
+		<ProjectReference Include="..\ThrowingStonesGame.Service\ThrowingStonesGame.Application.csproj" />
 	</ItemGroup>
 
 </Project>
