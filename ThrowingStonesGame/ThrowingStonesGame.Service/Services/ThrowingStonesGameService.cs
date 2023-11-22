@@ -1,166 +1,77 @@
-﻿using System.Numerics;
-using ThrowingStonesGame.Application.Interfaces;
+﻿using ThrowingStonesGame.Application.Constants;
+using ThrowingStonesGame.Application.Extensions;
+using ThrowingStonesGame.Application.Interfaces.Service;
 using ThrowingStonesGame.Application.Models;
 using ThrowingStonesGame.Domain;
-using ThrowingStonesGame.Service.Interfaces;
+
 
 namespace ThrowingStonesGame.Application.Services;
 
 public class ThrowingStonesGameService : IThrowingStonesGameService
 {
-    private IThrowingStonesGameServiceMapper _mapper;
-
-    public ThrowingStonesGameService(IThrowingStonesGameServiceMapper mapper) => _mapper = mapper;
-
-    public List<GameResultInfos> GenerateClassification(List<PlayModel> playModelList)
+    public List<Match> GetMatches(List<PlayInfosModel> playsOnTheGame)
     {
-        var plays = _mapper.MapperForDomainListPlays(playModelList);
+        var matches = new List<Match>();
 
-        var gameMatches = GetMatchesResults(plays);
-
-        var rankingResult = CalculateGeneralPontuation(gameMatches);
-
-        var classificationRanking = rankingResult.OrderByDescending(x => x.TotalScores).Distinct().ToList();
-
-        return classificationRanking;
-    }
-
-    public List<Match> GetMatchesResults(List<Play> allPlaysInTheGameList)
-    {
-        var matchResults = new List<Match>();
-
-        for (var index = 0; index < allPlaysInTheGameList.Count; index++)
+        for (int playIndex = 0; playIndex < playsOnTheGame.Count; playIndex++)
         {
-            var plays = allPlaysInTheGameList.FindAll(x => x.Players == allPlaysInTheGameList[index].Players);
+            var plays = playsOnTheGame.GetPlaysByPlayerNames(playsOnTheGame[playIndex].PlayerNames);
+            playIndex += plays.Count - 1;
 
-            index += plays.Count;
+            var initialPlay = plays.FirstOrDefault();
 
-            var matchResult = GetMatchResult(plays);
+            var match = new Match(firstPlayer: new Player(initialPlay.FirstPlayerName),
+                                  secondPlayer: new Player(initialPlay.SecondPlayerName, playingOutHome: true));
 
-            matchResults.Add(matchResult);
-        }
-
-        return matchResults;
-    }
-
-    public Match GetMatchResult(List<Play> plays)
-    {
-        var playerNames = plays.FirstOrDefault().Players.Split('x');
-
-        Match matchResult = new();
-        var playerNameIndex = 0;
-
-        foreach (var name in playerNames)
-        {
-            var player = matchResult.Players.Find(x => x.Name == name);
-
-            for (var playIndex = 0; playIndex < plays.Count; playIndex++)
+            foreach (var play in plays)
             {
-                var isSecondPlayer = playerNames.Count() == playerNameIndex + 1;
+                var stoneJumps = play.BoardStoneJumps.First();
 
-                player ??= new Player() { Name = name.Trim(' '), PlayingAwayFromHome = isSecondPlayer };
+                match.FirstPlayer.IncrementStoneJumps(stoneJumps,
+                    bonus: GetStoneJumpBonus(stoneJumpsCount: stoneJumps));
 
-                var stoneJumpsCount = int.Parse(plays[playIndex].MatchResult.Split('x')[playerNameIndex]);
+                stoneJumps = play.BoardStoneJumps.Last();
 
-                player.StoneJumpingTotalCountInTheMatch += stoneJumpsCount + CalculateTheStoneJumpBonusInThePlay(stoneJumpsCount);
-                player.StoneJumpingCountInThePlays.Add(stoneJumpsCount);
+                match.SecondPlayer.IncrementStoneJumps(stoneJumps,
+                  bonus: GetStoneJumpBonus(stoneJumpsCount: stoneJumps));
+
             }
 
-            player.StoneJumpingTotalCountInTheMatch += CalculateTotalStoneJumpBonusInTheMatch(player.StoneJumpingCountInThePlays, player.StoneJumpingTotalCountInTheMatch);
-            matchResult.Players.Add(player);
-            playerNameIndex++;
+            match.FirstPlayer.IncrementStoneJumps(
+                bonus: GetStoneJumpTotalCountEqualsBonus(stoneJumpingCountInThePlays: match.FirstPlayer.StoneJumpsCountHistoric,
+                stoneJumpingTotalCount: match.FirstPlayer.StoneJumpsCount));
+
+            match.SecondPlayer.IncrementStoneJumps(
+                bonus: GetStoneJumpTotalCountEqualsBonus(stoneJumpingCountInThePlays: match.SecondPlayer.StoneJumpsCountHistoric,
+                stoneJumpingTotalCount: match.SecondPlayer.StoneJumpsCount));
+
+            match.ComputeWinner();
+            matches.Add(match);
         }
 
-        return matchResult;
+        return matches;
     }
 
-    public int CalculateTheStoneJumpBonusInThePlay(int stoneJumpsCount)
+    private int GetStoneJumpBonus(int stoneJumpsCount)
     {
         var stoneJumpsCountBonus = 0;
-        var stoneJumpsValueForBonus = 10;
 
-        if (stoneJumpsCount > stoneJumpsValueForBonus)
+        if (stoneJumpsCount > ApplicationConstants.StoneJumpsValueForBonus)
             stoneJumpsCountBonus = 2;
 
         return stoneJumpsCountBonus;
     }
 
-    public int CalculateTotalStoneJumpBonusInTheMatch(List<int> stoneJumpingCountInThePlays, int stoneJumpingTotalCount)
+    private int GetStoneJumpTotalCountEqualsBonus(List<int> stoneJumpingCountInThePlays, int stoneJumpingTotalCount)
     {
-        int stoneJumpingTotalBonus = 0;
+        double stoneJumpingTotalBonus = 0;
 
-        var equalsJumpStonesCount = (stoneJumpingCountInThePlays.Select(x => x).Where(x => x == stoneJumpingTotalCount / stoneJumpingCountInThePlays.Count)).ToList();
+        var equalsJumpStonesCount = stoneJumpingCountInThePlays.Select(x => x).Where(x => x == stoneJumpingTotalCount / stoneJumpingCountInThePlays.Count);
 
-        if (equalsJumpStonesCount.Count == stoneJumpingCountInThePlays.Count)
-        {
-            var percentageAdditional = 10;
+        if (equalsJumpStonesCount.Count() == stoneJumpingCountInThePlays.Count)
+            stoneJumpingTotalBonus = Math.Round(stoneJumpingTotalCount * ApplicationConstants.StoneJumpAdditionalPercentage / 100D);
 
-            stoneJumpingTotalBonus = int.Parse((stoneJumpingTotalCount * percentageAdditional / 100).ToString("F0"));
-        }
-
-        return stoneJumpingTotalBonus;
-    }
-
-
-    public List<GameResultInfos> CalculateGeneralPontuation(List<Match> matchesResult)
-    {
-        List<GameResultInfos> gameResultInfos = new List<GameResultInfos>();
-
-        foreach (var match in matchesResult)
-        {
-            var firstPlayer = match.Players.FirstOrDefault();
-            var secondPlayer = match.Players.Last();
-
-            var IsTie = firstPlayer.StoneJumpingTotalCountInTheMatch == secondPlayer.StoneJumpingTotalCountInTheMatch;
-
-            if (IsTie)
-            {
-                var tieCasePotuation = 2;
-
-                secondPlayer.MatchScore = tieCasePotuation;
-            }
-            else
-            {
-                var winCasePotuation = 3;
-
-                var playerWinner = match.Players.MaxBy(x => x.StoneJumpingTotalCountInTheMatch);
-
-                if (playerWinner.Name == firstPlayer.Name)
-                    firstPlayer.MatchScore = winCasePotuation;
-                else
-                    secondPlayer.MatchScore = winCasePotuation;
-            }
-
-            var minStoneJumpsCountAllowed = 3;
-
-            if (firstPlayer.StoneJumpingTotalCountInTheMatch < minStoneJumpsCountAllowed)
-                firstPlayer.MatchScore = firstPlayer.MatchScore - 1;
-
-            if (secondPlayer.StoneJumpingTotalCountInTheMatch < minStoneJumpsCountAllowed)
-                secondPlayer.MatchScore = secondPlayer.MatchScore - 1;
-
-            GameResultInfos firstPlayerClassification = gameResultInfos.Find(x => x.PlayerName == firstPlayer.Name);
-
-            if (firstPlayerClassification == null)
-            {
-                firstPlayerClassification ??= new GameResultInfos() { PlayerName = firstPlayer.Name, TotalScores = firstPlayer.MatchScore };
-                gameResultInfos.Add(firstPlayerClassification);
-            }
-            else
-                firstPlayerClassification.TotalScores += firstPlayer.MatchScore;
-
-
-            GameResultInfos secondPlayerClassification = gameResultInfos.Find(x => x.PlayerName == secondPlayer.Name);
-            if (secondPlayerClassification == null)
-            {
-                secondPlayerClassification ??= new GameResultInfos() { PlayerName = secondPlayer.Name, TotalScores = secondPlayer.MatchScore };
-                gameResultInfos.Add(secondPlayerClassification);
-            }
-            else
-                secondPlayerClassification.TotalScores += secondPlayer.MatchScore;
-
-        }
-
-        return gameResultInfos;
+        return Convert.ToInt32(stoneJumpingTotalBonus);
     }
 }
+

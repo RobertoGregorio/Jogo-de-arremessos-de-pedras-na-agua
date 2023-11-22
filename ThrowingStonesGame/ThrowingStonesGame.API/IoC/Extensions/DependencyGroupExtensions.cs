@@ -1,11 +1,11 @@
 ﻿using ThrowingStonesGame.API.Filters;
 using ThrowingStonesGame.API.Mapping;
-using ThrowingStonesGame.Application.Interfaces;
+using ThrowingStonesGame.Application.Interfaces.Mapping;
+using ThrowingStonesGame.Application.Interfaces.Service;
 using ThrowingStonesGame.Application.Services;
 using ThrowingStonesGame.Infrastructure.EventBus;
 using ThrowingStonesGame.Infrastructure.EventBus.Interfaces;
 using ThrowingStonesGame.Infrastructure.EventBus.Service;
-using ThrowingStonesGame.Service.Interfaces;
 
 namespace ThrowingStonesGame.API.IoC.Extensions
 {
@@ -15,7 +15,8 @@ namespace ThrowingStonesGame.API.IoC.Extensions
         {
             services.AddSingleton<IServiceBusProducer, RabbitMQProducer>();
             services.AddSingleton<RequestLogFilterHandler>();
-            services.AddSingleton<IThrowingStonesGameServiceMapper, ThrowingStonesGameServiceMapper>();
+            services.AddSingleton<IThrowingStonesGameMapper, ThrowingStonesGameMapper>();
+            services.AddSingleton<IThrowingStonesGameRankingService, ThrowingStonesGameRankingService>();
             services.AddSingleton<IThrowingStonesGameService, ThrowingStonesGameService>();
 
             return services;

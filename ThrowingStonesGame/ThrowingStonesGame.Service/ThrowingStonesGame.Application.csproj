@@ -10,4 +10,8 @@
     <ProjectReference Include="..\ThrowingStonesGame.Domain\ThrowingStonesGame.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Interfaces\Validator\" />
+  </ItemGroup>
+
 </Project>

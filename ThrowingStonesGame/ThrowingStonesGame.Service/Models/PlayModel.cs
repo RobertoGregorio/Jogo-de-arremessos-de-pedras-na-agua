@@ -11,5 +11,5 @@ public class PlayModel
 
     [JsonPropertyName("resultado")]
     [Required(AllowEmptyStrings = false, ErrorMessage = "O campo resultado é obrigatório")]
-    public string? MatchResult { get; set; }
+    public string? PlayResult { get; set; }
 }

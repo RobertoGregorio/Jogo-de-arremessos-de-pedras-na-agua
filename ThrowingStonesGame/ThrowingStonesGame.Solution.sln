@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThrowingStonesGame.CrossCut
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThrowingStonesGame.Domain", "ThrowingStonesGame.Domain\ThrowingStonesGame.Domain.csproj", "{38FDB1B7-5079-43D6-A1E2-4EBB0BEF9288}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThrowingStonesGame.Tests", "ThrowingStonesGame.Tests\ThrowingStonesGame.Tests.csproj", "{9EC0EFE6-C92E-4F13-9825-317C7419DE58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{38FDB1B7-5079-43D6-A1E2-4EBB0BEF9288}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38FDB1B7-5079-43D6-A1E2-4EBB0BEF9288}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38FDB1B7-5079-43D6-A1E2-4EBB0BEF9288}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EC0EFE6-C92E-4F13-9825-317C7419DE58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EC0EFE6-C92E-4F13-9825-317C7419DE58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EC0EFE6-C92E-4F13-9825-317C7419DE58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EC0EFE6-C92E-4F13-9825-317C7419DE58}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +57,7 @@ Global
 		{07B7CC3B-2E7C-4411-89D4-427F128EBB48} = {D00C67F7-4295-4602-BC31-F61FE9930D30}
 		{897A946B-55B9-4678-8C21-01437762E8C1} = {D00C67F7-4295-4602-BC31-F61FE9930D30}
 		{38FDB1B7-5079-43D6-A1E2-4EBB0BEF9288} = {D00C67F7-4295-4602-BC31-F61FE9930D30}
+		{9EC0EFE6-C92E-4F13-9825-317C7419DE58} = {D00C67F7-4295-4602-BC31-F61FE9930D30}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D9613163-05A9-4716-88C4-FCE859400315}
