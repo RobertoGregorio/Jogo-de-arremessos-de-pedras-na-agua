@@ -1,6 +1,4 @@
-using NSubstitute;
 using ThrowingStonesGame.API.Mapping;
-using ThrowingStonesGame.Application.Interfaces;
 using ThrowingStonesGame.Application.Interfaces.Mapping;
 using ThrowingStonesGame.Application.Interfaces.Service;
 using ThrowingStonesGame.Application.Models;
@@ -14,7 +12,6 @@ namespace ThrowingStonesGame.Tests.Application
         private List<PlayModel> playModelsMock = new List<PlayModel>();
         private IThrowingStonesGameMapper _mapper;
 
-        [Fact]
         public void Setup()
         {
             playModelsMock.Add(new PlayModel() { Players = "Egio x Jaco", PlayResult = "4 x 2" });
@@ -29,27 +26,41 @@ namespace ThrowingStonesGame.Tests.Application
             _throwingStonesGameServiceMock = new ThrowingStonesGameService();
         }
 
-
-        [Fact]
-        public void GetMatches_WithSucces_ReturnedMatchesList()
+        public ThrowingStonesGameServiceTest()
         {
             Setup();
+        }
+
+
+        [Fact]
+        public void GetMatches_WithSucces_ReturnedMatches()
+        {
             var playsInfosMock = _mapper.MapPlayInfos(playModelsMock);
             var matches = _throwingStonesGameServiceMock.GetMatches(playsInfosMock);
 
-            Assert.Equal(2, matches.Count);
+            int totalMatches = 2;
+
+            Assert.True(matches != null);
+            Assert.Equal(totalMatches, matches.Count);
+
+            foreach ( var match in matches )
+            {
+                Assert.True(match.FirstPlayer != null);
+                Assert.True(match.SecondPlayer != null);
+            }
         }
 
         [Fact]
-        public void GetMatches_WhenPlaysMocksNull_ReturnNullReferenceException()
+        public void GetMatches_WhenPlaysCountIsZero_ReturnedMatches()
         {
-            Assert.Throws<NullReferenceException>(() => new ThrowingStonesGameService().GetMatches(null));
-        }
+            var playerModelListMock = new List<PlayModel>();
+            var playsInfosMock = _mapper.MapPlayInfos(playerModelListMock);
+            var matches = _throwingStonesGameServiceMock.GetMatches(playsInfosMock);
 
-        [Fact]
-        public void GetMatches_WhenPlaysMocksPlayerNamesIsNull_ReturnNullReferenceException()
-        {
-            Assert.Throws<NullReferenceException>(() => new ThrowingStonesGameService().GetMatches(null));
+            int totalMatches = 0;
+
+            Assert.True(matches != null);
+            Assert.Equal(totalMatches, matches.Count);
         }
     }
 }

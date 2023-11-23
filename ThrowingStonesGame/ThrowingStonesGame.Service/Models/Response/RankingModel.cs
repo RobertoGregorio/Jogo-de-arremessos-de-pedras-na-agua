@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace ThrowingStonesGame.Application.Models;
+namespace ThrowingStonesGame.Application.Models.Response;
 public class RankingModel
 {
     [JsonPropertyName("ranque_geral")]

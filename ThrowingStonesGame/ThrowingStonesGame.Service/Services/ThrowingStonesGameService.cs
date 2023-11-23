@@ -52,7 +52,7 @@ public class ThrowingStonesGameService : IThrowingStonesGameService
         return matches;
     }
 
-    private int GetStoneJumpBonus(int stoneJumpsCount)
+    private static int GetStoneJumpBonus(int stoneJumpsCount)
     {
         var stoneJumpsCountBonus = 0;
 
@@ -62,7 +62,7 @@ public class ThrowingStonesGameService : IThrowingStonesGameService
         return stoneJumpsCountBonus;
     }
 
-    private int GetStoneJumpTotalCountEqualsBonus(List<int> stoneJumpingCountInThePlays, int stoneJumpingTotalCount)
+    private static int GetStoneJumpTotalCountEqualsBonus(List<int> stoneJumpingCountInThePlays, int stoneJumpingTotalCount)
     {
         double stoneJumpingTotalBonus = 0;
 

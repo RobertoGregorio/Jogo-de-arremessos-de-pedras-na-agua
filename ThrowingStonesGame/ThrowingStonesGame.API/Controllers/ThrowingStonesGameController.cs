@@ -2,7 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using ThrowingStonesGame.API.Filters;
 using ThrowingStonesGame.Application.Interfaces.Mapping;
 using ThrowingStonesGame.Application.Interfaces.Service;
-using ThrowingStonesGame.Application.Models;
+using ThrowingStonesGame.Application.Models.Request;
+using ThrowingStonesGame.Application.Models.Response;
 
 namespace ThrowingStonesGame.API.Controllers;
 
@@ -25,10 +26,13 @@ public class ThrowingStonesGameController : ControllerBase
 
     [TypeFilter(typeof(RequestLogFilterHandler))]
     [HttpPost("classificacao_geral")]
-    public ActionResult GenerateGameClassification(GameModel gameModelJson)
+    public ActionResult GenerateGameClassification([FromBody] GameModel gameModelJson)
     {
         try
         {
+            if (gameModelJson.Plays != null && !gameModelJson.Plays.Any())
+                return BadRequest(new ModelValidation("A lista de jogadas não pode ser nula ou vazia"));
+
             var plays = _gameMapper.MapPlayInfos(gameModelJson.Plays);
 
             var results = _gameService.GetMatches(plays);
