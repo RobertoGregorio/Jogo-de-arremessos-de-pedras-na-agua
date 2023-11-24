@@ -7,17 +7,16 @@ builder.Services.AddControllers();
 builder.Services.AddModelBidingCustomValidation();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
 builder.Services.AddConfig(builder.Configuration);
+
 builder.Services.AddDependencyGroup();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.MapControllerRoute(
+    name: "index",
+    pattern: "{controller=ThrowingStonesGame}/{action=Index}");
 
 app.AddMiddlewares();
 

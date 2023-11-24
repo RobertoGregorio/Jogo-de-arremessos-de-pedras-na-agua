@@ -9,48 +9,47 @@ using ThrowingStonesGame.Infrastructure.EventBus;
 using ThrowingStonesGame.Infrastructure.EventBus.Interfaces;
 using ThrowingStonesGame.Infrastructure.EventBus.Service;
 
-namespace ThrowingStonesGame.API.IoC.Extensions
+namespace ThrowingStonesGame.API.IoC.Extensions;
+
+public static class PipelineBuildExtensions
 {
-    public static class PipelineBuildExtensions
+    public static IServiceCollection AddDependencyGroup(this IServiceCollection services)
     {
-        public static IServiceCollection AddDependencyGroup(this IServiceCollection services)
-        {
-            services.AddSingleton<IServiceBusProducer, RabbitMQProducer>();
-            services.AddSingleton<RequestLogFilterHandler>();
-            services.AddSingleton<IThrowingStonesGameMapper, ThrowingStonesGameMapper>();
-            services.AddSingleton<IThrowingStonesGameRankingService, ThrowingStonesGameRankingService>();
-            services.AddSingleton<IThrowingStonesGameService, ThrowingStonesGameService>();
+        services.AddSingleton<IServiceBusProducer, RabbitMQProducer>();
+        services.AddSingleton<RequestLogFilterHandler>();
+        services.AddSingleton<IThrowingStonesGameMapper, ThrowingStonesGameMapper>();
+        services.AddSingleton<IThrowingStonesGameRankingService, ThrowingStonesGameRankingService>();
+        services.AddSingleton<IThrowingStonesGameService, ThrowingStonesGameService>();
 
-            return services;
-        }
+        return services;
+    }
 
-        public static IServiceCollection AddConfig(this IServiceCollection services, IConfiguration config)
-        {
-            services.Configure<EventBusConfiguration>(config.GetSection(nameof(EventBusConfiguration)));
-            return services;
-        }
+    public static IServiceCollection AddConfig(this IServiceCollection services, IConfiguration config)
+    {
+        services.Configure<EventBusConfiguration>(config.GetSection(nameof(EventBusConfiguration)));
+        return services;
+    }
 
-        public static IServiceCollection AddModelBidingCustomValidation(this IServiceCollection services)
+    public static IServiceCollection AddModelBidingCustomValidation(this IServiceCollection services)
+    {
+        services.Configure<ApiBehaviorOptions>(options =>
         {
-            services.Configure<ApiBehaviorOptions>(options =>
+            options.InvalidModelStateResponseFactory = actionContext =>
             {
-                options.InvalidModelStateResponseFactory = actionContext =>
-                {
-                    var errors = actionContext.ModelState
-                        .Where(e => e.Value.Errors.Count > 0)
-                        .Select(e => new
-                        {
-                            Name = e.Key ,
-                            Message = e.Value.Errors.First().ErrorMessage
-                        }).ToArray();
+                var errors = actionContext.ModelState
+                    .Where(e => e.Value.Errors.Count > 0)
+                    .Select(e => new
+                    {
+                        Name = e.Key,
+                        Message = e.Value.Errors.First().ErrorMessage
+                    }).ToArray();
 
-                    var modelValidationResponse = new ModelValidation("As informações das jogadas não foram informadas corretamente", errors);
+                var modelValidationResponse = new ModelValidation("As informações das jogadas não foram informadas corretamente", errors);
 
-                    return new BadRequestObjectResult(modelValidationResponse);
-                };
-            });
+                return new BadRequestObjectResult(modelValidationResponse);
+            };
+        });
 
-            return services;
-        }
+        return services;
     }
 }

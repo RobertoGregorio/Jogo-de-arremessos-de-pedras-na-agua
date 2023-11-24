@@ -36,18 +36,41 @@ Para montar , criar e executar o container da aplicação ouvindo na porta 7080 
         },
         {
             "jogada": "Jaco x Egio",
-            "resultado": "2 x 2"
+            "resultado": "11 x 0"
         },
         {
             "jogada": "Jaco x Egio",
-            "resultado": "2 x 6"
+            "resultado": "10 x 2"
         },
         {
             "jogada": "Jaco x Egio",
-            "resultado": "2 x 2"
+            "resultado": "9 x 1"
         }
     ]
 }
 ```
 
 ### Exemplo de json de resposta
+
+```json
+{
+    "ranque_geral": [
+        {
+            "nome": "Jaco",
+            "qto_total_pontos": 6,
+            "posicao_ranking": 1,
+            "qto_vitorias": 2,
+            "qto_bonus": 1,
+            "qto_pontos_punicao": 0
+        },
+        {
+            "nome": "Egio",
+            "qto_total_pontos": 0,
+            "posicao_ranking": 2,
+            "qto_vitorias": 0,
+            "qto_bonus": 0,
+            "qto_pontos_punicao": 0
+        }
+    ]
+}
+```

@@ -13,8 +13,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<ProjectReference Include="..\ThrowingStonesGame.Application\ThrowingStonesGame.Application.csproj" />
 		<ProjectReference Include="..\ThrowingStonesGame.Infrastructure\ThrowingStonesGame.Infrastructure.csproj" />
-		<ProjectReference Include="..\ThrowingStonesGame.Service\ThrowingStonesGame.Application.csproj" />
 	</ItemGroup>
 
 </Project>

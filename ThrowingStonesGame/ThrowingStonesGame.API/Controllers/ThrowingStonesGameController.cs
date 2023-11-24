@@ -24,6 +24,18 @@ public class ThrowingStonesGameController : ControllerBase
         _gameRankingValidator = gameRanking;
     }
 
+    [HttpGet("Index")]
+    public ContentResult Index()
+    {
+        using StreamReader reader = new StreamReader(@"Index\index.html");
+        var htmlContext = reader.ReadToEnd();
+        return new ContentResult
+        {
+            Content = htmlContext,
+            ContentType = "text/html"
+        };
+    }
+
     [TypeFilter(typeof(RequestLogFilterHandler))]
     [HttpPost("classificacao_geral")]
     public ActionResult GenerateGameClassification([FromBody] GameModel gameModelJson)
@@ -35,12 +47,13 @@ public class ThrowingStonesGameController : ControllerBase
 
             var plays = _gameMapper.MapPlayInfos(gameModelJson.Plays);
 
-            var results = _gameService.GetMatches(plays);
+            var matches = _gameService.GetMatches(plays);
 
-            var ranking = _gameRankingValidator.GenerateRanking(results);
+            var ranking = _gameRankingValidator.GenerateRanking(matches);
 
             var rankingModel = _gameMapper.MapRankingModel(ranking);
-
+            rankingModel.MatchesTotalCount = matches.Count;
+           
             return Ok(rankingModel);
         }
         catch (Exception error)

@@ -6,16 +6,24 @@ namespace ThrowingStonesGame.API.Middlewares
     {
         private readonly RequestDelegate _next;
 
-        private readonly string[] Credentials = { "seleção2022", "rubyonrails" };
+        private static string[] _credentials;
 
-        public AuthenticationMiddleware(RequestDelegate next)
+        public AuthenticationMiddleware(RequestDelegate next, IConfiguration configuration)
         {
             _next = next;
+
+            var keyValue = configuration.GetSection("Configuration").GetSection("DefaultKey").Value;
+            _credentials = Encoding.UTF8.GetString(Convert.FromBase64String(keyValue)).Split(':');
         }
 
         public async Task InvokeAsync(HttpContext context)
         {
-
+            if(context.Request.Path == "/campeonato/Index")
+            {
+                await _next.Invoke(context);
+                return;
+            }
+              
             var isAuthenticated = Authenticate(context);
 
             if (!isAuthenticated)
@@ -42,16 +50,13 @@ namespace ThrowingStonesGame.API.Middlewares
                 if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                     return isAuthenticated;
 
-                if (username != Credentials[0] || password != Credentials[1])
+                if (username != _credentials[0] || password != _credentials[1])
                     return isAuthenticated;
 
                 isAuthenticated = true;
             }
 
-
             return isAuthenticated;
-
-
         }
     }
 }

@@ -1,31 +1,30 @@
-﻿namespace ThrowingStonesGame.API.Middlewares
+﻿namespace ThrowingStonesGame.API.Middlewares;
+
+public class ExceptionHandlerMiddleware
 {
-    public class ExceptionHandlerMiddleware
+    private readonly RequestDelegate _next;
+
+    public ExceptionHandlerMiddleware(RequestDelegate next)
     {
-        private readonly RequestDelegate _next;
+        _next = next;
+    }
 
-        public ExceptionHandlerMiddleware(RequestDelegate next)
+    public async Task InvokeAsync(HttpContext context)
+    {
+        try
         {
-            _next = next;
+            await _next.Invoke(context);
         }
-
-        public async Task InvokeAsync(HttpContext context)
+        catch (Exception ex)
         {
-            try
+            var erroResponse = new
             {
-                await _next.Invoke(context);
-            }
-            catch (Exception ex)
-            {
-                var erroResponse = new
-                {
-                    mensagem = ex.Message,
-                    tipoDeErro = ex.GetType().ToString(),
-                };
+                mensagem = ex.Message,
+                tipoDeErro = ex.GetType().ToString(),
+            };
 
-                context.Response.StatusCode = 500;
-                await context.Response.WriteAsJsonAsync(erroResponse);
-            }
+            context.Response.StatusCode = 500;
+            await context.Response.WriteAsJsonAsync(erroResponse);
         }
     }
 }

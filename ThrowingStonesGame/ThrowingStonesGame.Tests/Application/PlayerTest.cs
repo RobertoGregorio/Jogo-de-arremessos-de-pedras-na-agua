@@ -4,38 +4,43 @@ namespace ThrowingStonesGame.Tests.Application
 {
     public class PlayerTest
     {
-        private Player _playerMock = new Player("Egio");
-        public PlayerTest()
-        {
-
-        }
-
         [Theory]
         [InlineData(11, 2)]
-        public void IncrementStoneJumps_WithSuccess(int stoneJumps, int bonus)
+        [InlineData(20, 3)]
+        public void IncrementStoneJumps_WithSuccess_SetCorrectStoneJumpsCount(int stoneJumps, int stoneJumpsBonus)
         {
-            _playerMock.IncrementStoneJumps(stoneJumps, bonus);
+            //Arrange
 
-            Assert.Equal(_playerMock.StoneJumpsCount, stoneJumps + bonus);
+            Player playerMock = new("Egio");
+            var expectedStoneJumpsCount = stoneJumps + stoneJumpsBonus;
 
 
-            stoneJumps = stoneJumps + bonus;
-            StoneJumpsCount += stoneJumps;
-            StoneJumpsCountHistoric.Add(stoneJumps);
+            //Act
+            playerMock.IncrementStoneJumps(stoneJumps, stoneJumpsBonus);
+
+
+            //Assertion
+            Assert.True(playerMock.StoneJumpsCount > 0);
+            Assert.True(playerMock.BonusStoneJumpsCount > 0);
+            Assert.Equal(playerMock.StoneJumpsCount, expectedStoneJumpsCount);
         }
 
-        public void IncrementStoneJumps(int bonus)
+        [Fact]
+        public void IncrementStoneJumps_WhenBonusIsZero_SetCorrectStoneJumpsCount()
         {
-            IncrementBonusStoneJumpsCount(bonus);
+            //Arrange
 
-            StoneJumpsCount += bonus;
+            Player playerMock = new("Egio") { StoneJumpsCount  = 11 , };
+            var stoneJumpsBonus = 0;
+            var expectedStoneJumpsCount = playerMock.StoneJumpsCount + stoneJumpsBonus;
+
+            //Act
+            playerMock.IncrementStoneJumps(stoneJumpsBonus, stoneJumpsBonus);
+          
+            //Assertion
+            Assert.Equal(playerMock.StoneJumpsCount, expectedStoneJumpsCount);
         }
 
-        private void IncrementBonusStoneJumpsCount(int bonus = 0)
-        {
-            if (bonus > 0)
-                BonusStoneJumpsCount++;
-        }
     }
 }
-}
+
