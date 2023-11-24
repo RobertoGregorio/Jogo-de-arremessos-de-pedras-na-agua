@@ -20,17 +20,17 @@ namespace ThrowingStonesGame.Application.Services
                 secondPlayerRanking.TotalBonusCount += match.SecondPlayer.BonusStoneJumpsCount;
 
                 if (match.IsTie)
-                    secondPlayerRanking.TotalScores += ApplicationConstants.TiePotuation;
+                    secondPlayerRanking.TotalScores += GameRulesConstants.TiePotuation;
                 else
                 {
                     if (match.FirstPlayer.IsWinner)
                     {
-                        fisrtPlayerRanking.TotalScores += ApplicationConstants.WinPotuation;
+                        fisrtPlayerRanking.TotalScores += GameRulesConstants.WinPotuation;
                         fisrtPlayerRanking.WinsCount++;
                     }
                     else
                     {
-                        secondPlayerRanking.TotalScores += ApplicationConstants.WinPotuation;
+                        secondPlayerRanking.TotalScores += GameRulesConstants.WinPotuation;
                         secondPlayerRanking.WinsCount++;
                         secondPlayerRanking.WinsCountOutHome++;
                     }

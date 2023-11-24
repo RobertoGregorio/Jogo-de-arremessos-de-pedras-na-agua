@@ -27,23 +27,16 @@ public class ThrowingStonesGameService : IThrowingStonesGameService
             {
                 var stoneJumps = play.BoardStoneJumps.First();
 
-                match.FirstPlayer.IncrementStoneJumps(stoneJumps,
-                    bonus: GetStoneJumpBonus(stoneJumpsCount: stoneJumps));
+                match.FirstPlayer.IncrementStoneJumps(stoneJumps, bonus: GetBonusStoneJumpsInThePlay(stoneJumpsCount: stoneJumps));
 
                 stoneJumps = play.BoardStoneJumps.Last();
 
-                match.SecondPlayer.IncrementStoneJumps(stoneJumps,
-                  bonus: GetStoneJumpBonus(stoneJumpsCount: stoneJumps));
-
+                match.SecondPlayer.IncrementStoneJumps(stoneJumps, bonus: GetBonusStoneJumpsInThePlay(stoneJumpsCount: stoneJumps));
             }
 
-            match.FirstPlayer.IncrementStoneJumps(
-                bonus: GetStoneJumpTotalCountEqualsBonus(stoneJumpingCountInThePlays: match.FirstPlayer.StoneJumpsCountHistoric,
-                stoneJumpingTotalCount: match.FirstPlayer.StoneJumpsCount));
+            match.FirstPlayer.IncrementStoneJumps(bonus: GetBonusStoneJumpsInTheMatch(stoneJumpingCountInThePlays: match.FirstPlayer.StoneJumpsCountHistoric));
 
-            match.SecondPlayer.IncrementStoneJumps(
-                bonus: GetStoneJumpTotalCountEqualsBonus(stoneJumpingCountInThePlays: match.SecondPlayer.StoneJumpsCountHistoric,
-                stoneJumpingTotalCount: match.SecondPlayer.StoneJumpsCount));
+            match.SecondPlayer.IncrementStoneJumps(bonus: GetBonusStoneJumpsInTheMatch(stoneJumpingCountInThePlays: match.SecondPlayer.StoneJumpsCountHistoric));
 
             match.ComputeWinner();
             matches.Add(match);
@@ -52,24 +45,24 @@ public class ThrowingStonesGameService : IThrowingStonesGameService
         return matches;
     }
 
-    private static int GetStoneJumpBonus(int stoneJumpsCount)
+    public int GetBonusStoneJumpsInThePlay(int stoneJumpsCount)
     {
         var stoneJumpsCountBonus = 0;
 
-        if (stoneJumpsCount > ApplicationConstants.StoneJumpsValueForBonus)
-            stoneJumpsCountBonus = 2;
+        if (stoneJumpsCount > GameRulesConstants.StoneJumpsValueForBonus)
+            stoneJumpsCountBonus = GameRulesConstants.StoneJumpBonusValue;
 
         return stoneJumpsCountBonus;
     }
 
-    private static int GetStoneJumpTotalCountEqualsBonus(List<int> stoneJumpingCountInThePlays, int stoneJumpingTotalCount)
+    public int GetBonusStoneJumpsInTheMatch(List<int> stoneJumpingCountInThePlays)
     {
         double stoneJumpingTotalBonus = 0;
 
-        var equalsJumpStonesCount = stoneJumpingCountInThePlays.Select(x => x).Where(x => x == stoneJumpingTotalCount / stoneJumpingCountInThePlays.Count);
+        var equalsJumpStonesCount = stoneJumpingCountInThePlays.Select(x => x).Where(x => x == stoneJumpingCountInThePlays.Sum() / stoneJumpingCountInThePlays.Count);
 
         if (equalsJumpStonesCount.Count() == stoneJumpingCountInThePlays.Count)
-            stoneJumpingTotalBonus = Math.Round(stoneJumpingTotalCount * ApplicationConstants.StoneJumpAdditionalPercentage / 100D);
+            stoneJumpingTotalBonus = Math.Round(stoneJumpingCountInThePlays.Sum() * GameRulesConstants.StoneJumpAdditionalPercentage / 100D);
 
         return Convert.ToInt32(stoneJumpingTotalBonus);
     }
