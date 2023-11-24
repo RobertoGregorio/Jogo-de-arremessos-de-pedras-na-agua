@@ -1,4 +1,4 @@
-###Jogo-de-arremessos-de-pedras-na-agua
+### Jogo-de-arremessos-de-pedras-na-agua
 
 Serviço REST para contabilizar jogadas de um campeonato de arremessos de pedras na agua e retornar a classificação geral do campeonato.
 
