@@ -2,7 +2,7 @@
 
 Serviço REST para contabilizar jogadas de um campeonato de arremessos de pedras na agua e retornar a classificação geral do campeonato.
 
-###Tecnologias utilizadas
+### Tecnologias utilizadas
 Desenvolvido em c#
 Deploy na AWS
 Testes Unitários
