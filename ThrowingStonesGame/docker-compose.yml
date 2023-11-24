@@ -1,0 +1,9 @@
+version: latest
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: throwingstonesgameapi
+    ports:
+      - "7080:7090"
