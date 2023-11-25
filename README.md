@@ -54,6 +54,8 @@ Para montar , criar e executar o container da aplicação ouvindo na porta 7080 
 
 ```json
 {
+    "qto_total_partidas": 2,
+    "vencedor": "Jaco",
     "ranque_geral": [
         {
             "nome": "Jaco",
