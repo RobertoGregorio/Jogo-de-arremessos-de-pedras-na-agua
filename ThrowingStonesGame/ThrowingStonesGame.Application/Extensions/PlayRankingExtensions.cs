@@ -19,42 +19,25 @@ public static class PlayRankingExtensions
 
     public static List<PlayerRanking>? OrderByClassificationDesc(this List<PlayerRanking> generalClassification)
     {
-        var stotalScoreMax = generalClassification.MaxBy(x => x.TotalScores).TotalScores;
-        var tieRanking = generalClassification.Select(x => x).Where(x => x.TotalScores == stotalScoreMax).ToList();
+        if (!generalClassification.GetElementWithMaxScoresValue().HasMoreOnePlayer())
+            return generalClassification.OrderByDescending(x => x.TotalScores).ToList();
 
-        if (tieRanking != null && tieRanking.Count > 1)
-        {
-            var winsCountMaxValue = generalClassification.MaxBy(x => x.WinsCount).WinsCount;
+        if (!generalClassification.GetElementWithMaxWinsCount().HasMoreOnePlayer())
+            return generalClassification.OrderByDescending(x => x.TotalWins).ToList();
 
-            tieRanking = generalClassification.Select(x => x).Where(x => x.WinsCount == winsCountMaxValue).ToList();
+        if (!generalClassification.GetElementWithMaxWinsOutHomeCount().HasMoreOnePlayer())
+            return generalClassification.OrderByDescending(x => x.TotalWinsOutHome).ToList();
 
-            if (tieRanking.Count > 1)
-            {
-                var winsOutHomeMaxValue = generalClassification.MaxBy(x => x.WinsCountOutHome).WinsCountOutHome;
-                tieRanking = generalClassification.Select(x => x).Where(x => x.WinsCountOutHome == winsOutHomeMaxValue).ToList();
-            }
-            else
-                return generalClassification.OrderByDescending(x => x.WinsCount).ToList();
+        if (!generalClassification.GetElementWithMaxTotalBonusCount().HasMoreOnePlayer())
+            return generalClassification.OrderByDescending(x => x.TotalStoneJumpsBonusCount).ToList();
 
-            if (tieRanking.Count > 1)
-            {
-                var totalBonusCountMaxValue = generalClassification.MaxBy(x => x.TotalBonusCount).TotalBonusCount;
-                tieRanking = generalClassification.Select(x => x).Where(x => x.TotalBonusCount == totalBonusCountMaxValue).ToList();
-            }
-            else
-                return generalClassification = generalClassification.OrderByDescending(x => x.WinsCountOutHome).ToList();
-
-            if (tieRanking.Count > 1)
-            {
-                var interestPointsCountMinalue = generalClassification.MinBy(x => x.InterestPointsCount).InterestPointsCount;
-                tieRanking = generalClassification.Select(x => x).Where(x => x.InterestPointsCount == interestPointsCountMinalue).ToList();
-            }
-            else
-                return generalClassification.OrderByDescending(x => x.TotalBonusCount).ToList();
-
-            return generalClassification.OrderBy(x => x.InterestPointsCount).ToList();
-        }
-
-        return generalClassification.OrderByDescending(x => x.TotalScores).ToList();
+        return generalClassification.OrderBy(x => x.TotalPunishmentPoints).ToList();
     }
+
+    public static bool HasMoreOnePlayer(this List<PlayerRanking> tieRanking) => tieRanking.Count > 1;
+    public static List<PlayerRanking>? GetElementWithMaxScoresValue(this List<PlayerRanking> generalClassification) => generalClassification.Select(x => x).Where(x => x.TotalScores == generalClassification.MaxBy(x => x.TotalScores).TotalScores).ToList();
+    public static List<PlayerRanking>? GetElementWithMaxWinsCount(this List<PlayerRanking> generalClassification) => generalClassification.Select(x => x).Where(x => x.TotalWins == generalClassification.MaxBy(x => x.TotalWins).TotalWins).ToList();
+    public static List<PlayerRanking>? GetElementWithMaxWinsOutHomeCount(this List<PlayerRanking> generalClassification) => generalClassification.Select(x => x).Where(x => x.TotalWinsOutHome == generalClassification.MaxBy(x => x.TotalWinsOutHome).TotalWinsOutHome).ToList();
+    public static List<PlayerRanking>? GetElementWithMaxTotalBonusCount(this List<PlayerRanking> generalClassification) => generalClassification.Select(x => x).Where(x => x.TotalStoneJumpsBonusCount == generalClassification.MaxBy(x => x.TotalStoneJumpsBonusCount).TotalStoneJumpsBonusCount).ToList();
+    public static List<PlayerRanking>? GetElementWithMinTotalInterestPointsCount(this List<PlayerRanking> generalClassification) => generalClassification.Select(x => x).Where(x => x.TotalPunishmentPoints == generalClassification.MinBy(x => x.TotalPunishmentPoints).TotalPunishmentPoints).ToList();
 }

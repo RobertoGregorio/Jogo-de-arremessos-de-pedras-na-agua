@@ -34,11 +34,12 @@ public class ThrowingStonesGameService : IThrowingStonesGameService
                 match.SecondPlayer.IncrementStoneJumps(stoneJumps, bonus: GetBonusStoneJumpsInThePlay(stoneJumpsCount: stoneJumps));
             }
 
-            match.FirstPlayer.IncrementStoneJumps(bonus: GetBonusStoneJumpsInTheMatch(stoneJumpingCountInThePlays: match.FirstPlayer.StoneJumpsCountHistoric));
+            match.FirstPlayer.IncrementStoneJumps(bonus: GetBonusStoneJumpsInTheMatch(stoneJumpsCountInTheMatch: match.FirstPlayer.StoneJumpsHistoricCountPerPlay));
 
-            match.SecondPlayer.IncrementStoneJumps(bonus: GetBonusStoneJumpsInTheMatch(stoneJumpingCountInThePlays: match.SecondPlayer.StoneJumpsCountHistoric));
+            match.SecondPlayer.IncrementStoneJumps(bonus: GetBonusStoneJumpsInTheMatch(stoneJumpsCountInTheMatch: match.SecondPlayer.StoneJumpsHistoricCountPerPlay));
 
             match.ComputeWinner();
+
             matches.Add(match);
         }
 
@@ -55,14 +56,14 @@ public class ThrowingStonesGameService : IThrowingStonesGameService
         return stoneJumpsCountBonus;
     }
 
-    public int GetBonusStoneJumpsInTheMatch(List<int> stoneJumpingCountInThePlays)
+    public int GetBonusStoneJumpsInTheMatch(List<int> stoneJumpsCountInTheMatch)
     {
         double stoneJumpingTotalBonus = 0;
 
-        var equalsJumpStonesCount = stoneJumpingCountInThePlays.Select(x => x).Where(x => x == stoneJumpingCountInThePlays.Sum() / stoneJumpingCountInThePlays.Count);
+        var equalsJumpStonesCount = stoneJumpsCountInTheMatch.Select(x => x).Where(x => x == stoneJumpsCountInTheMatch.Sum() / stoneJumpsCountInTheMatch.Count);
 
-        if (equalsJumpStonesCount.Count() == stoneJumpingCountInThePlays.Count)
-            stoneJumpingTotalBonus = Math.Round(stoneJumpingCountInThePlays.Sum() * GameRulesConstants.StoneJumpAdditionalPercentage / 100D);
+        if (equalsJumpStonesCount.Count() == stoneJumpsCountInTheMatch.Count)
+            stoneJumpingTotalBonus = Math.Round(stoneJumpsCountInTheMatch.Sum() * GameRulesConstants.StoneJumpAdditionalPercentage / 100D);
 
         return Convert.ToInt32(stoneJumpingTotalBonus);
     }

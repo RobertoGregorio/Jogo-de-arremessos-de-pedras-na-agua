@@ -26,7 +26,7 @@ public class ThrowingStonesGameRankingServiceTest
             {new PlayModel() { Players = "Jaco x Egio", PlayResult = "2 x 2" }}
         };
 
-        _playInfosListMock = new ThrowingStonesGameMapper().MapPlayInfos(playModelListMock);
+        _playInfosListMock = new ThrowingStonesGameMapper().MapPlayInfosList(playModelListMock);
 
         _throwingStonesGameRankingService = new ThrowingStonesGameRankingService();
         _throwingStonesGameService = new ThrowingStonesGameService();

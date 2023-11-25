@@ -13,11 +13,11 @@ namespace ThrowingStonesGame.Application.Services
 
             foreach (Match match in matches)
             {
-                PlayerRanking fisrtPlayerRanking = rank.AddIfNotExistPlayerRanking(match.FirstPlayer.Name);
-                fisrtPlayerRanking.TotalBonusCount += match.FirstPlayer.BonusStoneJumpsCount;
+                PlayerRanking fisrtPlayerRanking = rank.AddDoesNotExistPlayerRanking(match.FirstPlayer.Name);
+                fisrtPlayerRanking.TotalStoneJumpsBonusCount += match.FirstPlayer.TotalBonusStoneJumpsCount;
 
-                PlayerRanking secondPlayerRanking = rank.AddIfNotExistPlayerRanking(match.SecondPlayer.Name);
-                secondPlayerRanking.TotalBonusCount += match.SecondPlayer.BonusStoneJumpsCount;
+                PlayerRanking secondPlayerRanking = rank.AddDoesNotExistPlayerRanking(match.SecondPlayer.Name);
+                secondPlayerRanking.TotalStoneJumpsBonusCount += match.SecondPlayer.TotalBonusStoneJumpsCount;
 
                 if (match.IsTie)
                     secondPlayerRanking.TotalScores += GameRulesConstants.TiePotuation;
@@ -26,18 +26,22 @@ namespace ThrowingStonesGame.Application.Services
                     if (match.FirstPlayer.IsWinner)
                     {
                         fisrtPlayerRanking.TotalScores += GameRulesConstants.WinPotuation;
-                        fisrtPlayerRanking.WinsCount++;
+                        fisrtPlayerRanking.TotalWins++;
                     }
                     else
                     {
                         secondPlayerRanking.TotalScores += GameRulesConstants.WinPotuation;
-                        secondPlayerRanking.WinsCount++;
-                        secondPlayerRanking.WinsCountOutHome++;
+                        secondPlayerRanking.TotalWins++;
+                        secondPlayerRanking.TotalWinsOutHome++;
                     }
                 }
 
-                fisrtPlayerRanking.ValidateInterestPoint(match.FirstPlayer.StoneJumpsCount);
-                secondPlayerRanking.ValidateInterestPoint(match.SecondPlayer.StoneJumpsCount);
+                if (match.FirstPlayer.TotalStoneJumps < GameRulesConstants.MinTotalStoneJumpsinTheMatchAllowed)
+                    fisrtPlayerRanking.AddPunishment();
+
+                if (match.SecondPlayer.TotalStoneJumps < GameRulesConstants.MinTotalStoneJumpsinTheMatchAllowed)
+                    secondPlayerRanking.AddPunishment();
+
             }
 
             rank.GeneralClassification = rank.GeneralClassification.SortedRanking();

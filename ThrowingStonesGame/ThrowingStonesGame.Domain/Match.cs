@@ -1,38 +1,37 @@
-﻿namespace ThrowingStonesGame.Domain
+﻿namespace ThrowingStonesGame.Domain;
+
+public class Match
 {
-    public class Match
+    public int[] MatchScoreboard { get; set; }
+    public Player FirstPlayer { get; set; }
+    public Player SecondPlayer { get; set; }
+    public bool IsTie { get; private set; }
+
+    public Match(Player firstPlayer, Player secondPlayer)
     {
-        public int[] MatchScoreboard { get; set; }
-        public Player FirstPlayer { get; set; }
-        public Player SecondPlayer { get; set; }
-        public bool IsTie { get; private set; }
+        if (firstPlayer == null || secondPlayer == null)
+            throw new Exception("um dos jogadores da partida não podem ser nulo");
 
-        public Match(Player firstPlayer, Player secondPlayer)
+        FirstPlayer = firstPlayer;
+        SecondPlayer = secondPlayer;
+    }
+
+    public void ComputeWinner()
+    {
+        if (!IsTie)
         {
-            if (firstPlayer == null || secondPlayer == null)
-                throw new Exception("um dos jogadores da partida não podem ser nulo");
-
-            FirstPlayer = firstPlayer;
-            SecondPlayer = secondPlayer;
+            if (FirstPlayer.TotalStoneJumps > SecondPlayer.TotalStoneJumps)
+                FirstPlayer.IsWinner = true;
+            else
+                SecondPlayer.IsWinner = true;
         }
+    }
 
-        public void ComputeWinner()
-        {
-            if (!IsTie)
-            {
-                if (FirstPlayer.StoneJumpsCount > SecondPlayer.StoneJumpsCount)
-                    FirstPlayer.IsWinner = true;
-                else
-                    SecondPlayer.IsWinner = true;
-            }
-        }
+    public void SetMatchScoreboard()
+    {
+        MatchScoreboard = new int[] { FirstPlayer.TotalStoneJumps, SecondPlayer.TotalStoneJumps };
 
-        public void SetMatchScoreboard()
-        {
-            MatchScoreboard = new int[] { FirstPlayer.StoneJumpsCount, SecondPlayer.StoneJumpsCount };
-
-            if (FirstPlayer.StoneJumpsCount == SecondPlayer.StoneJumpsCount)
-                IsTie = true;
-        }
+        if (FirstPlayer.TotalStoneJumps == SecondPlayer.TotalStoneJumps)
+            IsTie = true;
     }
 }

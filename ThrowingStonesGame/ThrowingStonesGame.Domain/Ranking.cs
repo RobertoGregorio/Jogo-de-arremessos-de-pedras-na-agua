@@ -9,7 +9,7 @@ public class Ranking
         GeneralClassification = new List<PlayerRanking>();
     }
 
-    public PlayerRanking AddIfNotExistPlayerRanking(string playerName)
+    public PlayerRanking AddDoesNotExistPlayerRanking(string playerName)
     {
         PlayerRanking playerRanking = GeneralClassification.Find(x => x.Name == playerName);
         if (playerRanking == null)

@@ -6,6 +6,10 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThrowingStonesGame.API", "ThrowingStonesGame.API\ThrowingStonesGame.API.csproj", "{8E8CE131-CABD-48E2-ABB2-5310D229C579}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ThrowingStonesGame", "ThrowingStonesGame", "{D00C67F7-4295-4602-BC31-F61FE9930D30}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		Dockerfile = Dockerfile
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{DB2E9F8A-EEEB-4F27-A823-00488980546C}"
 EndProject

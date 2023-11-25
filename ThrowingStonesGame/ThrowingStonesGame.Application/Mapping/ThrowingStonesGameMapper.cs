@@ -7,7 +7,7 @@ namespace ThrowingStonesGame.API.Mapping;
 
 public class ThrowingStonesGameMapper : IThrowingStonesGameMapper
 {
-    public List<PlayInfosModel> MapPlayInfos(List<PlayModel> plays)
+    public List<PlayInfosModel> MapPlayInfosList(List<PlayModel> plays)
     {
         var mappingList = new List<PlayInfosModel>();
 
@@ -25,12 +25,12 @@ public class ThrowingStonesGameMapper : IThrowingStonesGameMapper
 
         foreach (var playerRankig in ranking.GeneralClassification)
         {
-            rankingModel.PlayerRankingModels.Add(new PlayerRankingModel(playerRankig.Name,
+            rankingModel.PlayerRankingModelList.Add(new PlayerRankingModel(playerRankig.Name,
                 playerRankig.TotalScores,
                 playerRankig.RankingPosition,
-                playerRankig.WinsCount,
-                playerRankig.TotalBonusCount,
-                playerRankig.InterestPointsCount));
+                playerRankig.TotalWins,
+                playerRankig.TotalStoneJumpsBonusCount,
+                playerRankig.TotalPunishmentPoints));
         }
 
         return rankingModel;

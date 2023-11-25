@@ -35,7 +35,7 @@ public class ThrowingStonesGameMapperTest
         int scoreBoardTotalLenght = 2;
 
         //Act
-        var playsInfosMock = _mapper.MapPlayInfos(playModelsMock);
+        var playsInfosMock = _mapper.MapPlayInfosList(playModelsMock);
 
 
         //Assertion
@@ -58,7 +58,7 @@ public class ThrowingStonesGameMapperTest
         int playsInfosTotal = 0;
 
         //Act
-        var playsInfosMock = _mapper.MapPlayInfos(new List<PlayModel>());
+        var playsInfosMock = _mapper.MapPlayInfosList(new List<PlayModel>());
 
         //Assertion
         Assert.True(playsInfosMock != null);
@@ -75,27 +75,27 @@ public class ThrowingStonesGameMapperTest
         {
             RankingPosition = 1,
             TotalScores = 18,
-            WinsCount = 6,
-            TotalBonusCount = 2,
-            InterestPointsCount = 0,
+            TotalWins = 6,
+            TotalStoneJumpsBonusCount = 2,
+            TotalPunishmentPoints = 0,
         };
 
         var secondPlayerClassification = new PlayerRanking(name: "Jaco")
         {
             RankingPosition = 1,
             TotalScores = 6,
-            WinsCount = 2,
-            TotalBonusCount = 0,
-            InterestPointsCount = 0,
+            TotalWins = 2,
+            TotalStoneJumpsBonusCount = 0,
+            TotalPunishmentPoints = 0,
         };
 
         var thirdPlayerClassification = new PlayerRanking(name: "Caio")
         {
             RankingPosition = 3,
             TotalScores = 0,
-            WinsCount = 0,
-            TotalBonusCount = 0,
-            InterestPointsCount = 0,
+            TotalWins = 0,
+            TotalStoneJumpsBonusCount = 0,
+            TotalPunishmentPoints = 0,
         };
 
         var ranking = new Ranking();
@@ -110,10 +110,10 @@ public class ThrowingStonesGameMapperTest
 
         //Assertion
         Assert.True(rankingModel != null);
-        Assert.Equal(rankingModel.PlayerRankingModels.Count, ranking.GeneralClassification.Count);
-        Assert.Equal(rankingModel.PlayerRankingModels.First().RankingPosition, firstPlayerClassification.RankingPosition);
-        Assert.Equal(rankingModel.PlayerRankingModels[1].RankingPosition, secondPlayerClassification.RankingPosition);
-        Assert.Equal(rankingModel.PlayerRankingModels.Last().RankingPosition, thirdPlayerClassification.RankingPosition);
+        Assert.Equal(rankingModel.PlayerRankingModelList.Count, ranking.GeneralClassification.Count);
+        Assert.Equal(rankingModel.PlayerRankingModelList.First().RankingPosition, firstPlayerClassification.RankingPosition);
+        Assert.Equal(rankingModel.PlayerRankingModelList[1].RankingPosition, secondPlayerClassification.RankingPosition);
+        Assert.Equal(rankingModel.PlayerRankingModelList.Last().RankingPosition, thirdPlayerClassification.RankingPosition);
     }
 
     [Fact]
@@ -130,6 +130,6 @@ public class ThrowingStonesGameMapperTest
 
         //Assertion
         Assert.True(rankingModel != null);
-        Assert.Equal(rankingModel.PlayerRankingModels.Count, expectedTotalCount);
+        Assert.Equal(rankingModel.PlayerRankingModelList.Count, expectedTotalCount);
     }
 }

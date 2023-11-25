@@ -44,7 +44,7 @@ public static class PipelineBuildExtensions
                         Message = e.Value.Errors.First().ErrorMessage
                     }).ToArray();
 
-                var modelValidationResponse = new ModelValidation("As informações das jogadas não foram informadas corretamente", errors);
+                var modelValidationResponse = new ModelValidation("Os dados não foram informados corretamente", errors);
 
                 return new BadRequestObjectResult(modelValidationResponse);
             };

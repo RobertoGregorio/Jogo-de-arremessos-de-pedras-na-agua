@@ -45,20 +45,17 @@ public class ThrowingStonesGameController : ControllerBase
             if (gameModelJson.Plays != null && !gameModelJson.Plays.Any())
                 return BadRequest(new ModelValidation("A lista de jogadas não pode ser nula ou vazia"));
 
-            var plays = _gameMapper.MapPlayInfos(gameModelJson.Plays);
-
-            var matches = _gameService.GetMatches(plays);
-
+            var playsInfoList = _gameMapper.MapPlayInfosList(gameModelJson.Plays);
+            var matches = _gameService.GetMatches(playsInfoList);
             var ranking = _gameRankingValidator.GenerateRanking(matches);
-
             var rankingModel = _gameMapper.MapRankingModel(ranking);
             rankingModel.MatchesTotalCount = matches.Count;
-           
+
             return Ok(rankingModel);
         }
         catch (Exception error)
         {
-            _logger.LogError("{1} error:{0}", DateTime.UtcNow, error.Message);
+            _logger.LogError($"{DateTime.UtcNow} - error: {error.Message}");
             return StatusCode(500, new { msgErro = error.Message });
         }
     }
